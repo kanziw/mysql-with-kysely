@@ -23,7 +23,7 @@ describe('MySQL with Kysely', () => {
         .selectFrom('user')
         .selectAll()
         .orderBy('id', 'desc')
-        .limit('1' as unknown as number),
+        .limit(1),
       )
 
       expect(users).toEqual([])
