@@ -1,7 +1,7 @@
 import { Database, qb } from './fixtures/mysql'
 import { connect } from '../index'
 
-describe.skip('Integration Test with Real MySQL Connection', () => {
+describe('Integration Test with Real MySQL Connection', () => {
   const { db, close } = connect<Database>({ uri: 'mysql://root:root@localhost:3306/test' })
 
   beforeAll(() => db.truncate('user'))

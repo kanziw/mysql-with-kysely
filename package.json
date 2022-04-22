@@ -6,7 +6,8 @@
     "build": "yarn clean && tsc",
     "db:sync": "mysqldef -uroot -proot test < ddl.sql && sql-ts -c dbconfig.json",
     "lint": "eslint",
-    "test": "jest"
+    "test": "jest",
+    "test:integration": "jest -c jest-integration.config.js"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
