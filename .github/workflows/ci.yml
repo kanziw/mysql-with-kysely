@@ -27,4 +27,5 @@ jobs:
       - name: Test with coverage
         uses: ArtiomTr/jest-coverage-report-action@v2
         with:
+          test-script: yarn jest
           package-manager: yarn
