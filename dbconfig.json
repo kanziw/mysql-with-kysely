@@ -1,0 +1,17 @@
+{
+  "client": "mysql2",
+  "connection": {
+    "host": "localhost",
+    "port": 3306,
+    "user": "root",
+    "password": "root",
+    "database": "test"
+  },
+  "interfaceNameFormat": "${table}",
+  "tableNameCasing": "pascal",
+  "schemas": [
+    "test"
+  ],
+  "filename": "src/__tests__/fixtures/model",
+  "template": "./sql-ts-template.handlebars"
+}

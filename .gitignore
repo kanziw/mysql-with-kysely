@@ -10,5 +10,6 @@
 !.yarn/cache
 #.pnp.*
 
+.idea/
 dist/
 coverage/
