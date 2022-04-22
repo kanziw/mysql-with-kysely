@@ -18,13 +18,14 @@ type ExecuteType =
   | DeleteQueryBuilder<never, never, DeleteResult>;
 
 interface Query<Database> {
-  query: <Result>(kyselyQb: QueryType<Result, Database>) => Promise<Array<Selectable<Result>>>;
-  execute: (kyselyQb: ExecuteType) => Promise<ResultSetHeader>;
+  query<Result>(kyselyQb: QueryType<Result, Database>): Promise<Array<Selectable<Result>>>;
+  execute(kyselyQb: ExecuteType): Promise<ResultSetHeader>;
 }
 
 export interface MySql<Database> extends Query<Database> {
-  ping: () => Promise<void>;
-  withTransaction: <T = void>(fn: (connection: Query<Database>) => Promise<T>) => Promise<T>;
+  ping(): Promise<void>;
+  withTransaction<T = void>(fn: (connection: Query<Database>) => Promise<T>): Promise<T>;
+  truncate(tableName: keyof Database): Promise<void>;
 }
 
 const query = <Database>(connection: PoolConnection): Query<Database> => {
@@ -48,6 +49,7 @@ const query = <Database>(connection: PoolConnection): Query<Database> => {
       }
       return _execute(sql, parameters)
     },
+
     async execute (kyselyQb) {
       const { sql, parameters } = kyselyQb.compile()
       if (sql.startsWith('select')) {
@@ -66,7 +68,7 @@ export const mysql = <Database>(pool: Pool): MySql<Database> => {
     return fn(connection).finally(() => connection.release())
   }
   return {
-    ping: async () => {
+    async ping () {
       const { promise, cancel } = cancellableDelay(3000)
       const isSuccess = await Promise.race([
         withConnection((connection) => connection.ping())
@@ -79,12 +81,21 @@ export const mysql = <Database>(pool: Pool): MySql<Database> => {
         throw new Error('MySQL ping failed')
       }
     },
+
     async query (kyselyQb) {
       return withConnection((connection) => query(connection).query(kyselyQb))
     },
+
     async execute (kyselyQb) {
       return withConnection((connection) => query(connection).execute(kyselyQb))
     },
+
+    async truncate (tableName) {
+      return withConnection<void>(async connection => {
+        await connection.execute(`truncate table ${tableName}`)
+      })
+    },
+
     async withTransaction (fn) {
       return withConnection(async (connection) => {
         await connection.beginTransaction()
