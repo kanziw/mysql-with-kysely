@@ -1,9 +1,9 @@
 import { createPool } from 'mysql2/promise'
 import { mysql } from './mysql'
 
-export const connect = <Database>() => {
+export const connect = <Database>({ uri }: { uri: string }) => {
   const mysqlPool = createPool({
-    uri: 'mysql://root:root@localhost:3306/test',
+    uri,
     supportBigNumbers: true,
     bigNumberStrings: true,
     charset: 'utf8mb4',

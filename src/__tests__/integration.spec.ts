@@ -5,8 +5,8 @@ type Database = {
   user: WithSchema<User>
 }
 
-describe('MySQL with Kysely', () => {
-  const { db, close } = connect<Database>()
+describe.skip('Integration Test with Real MySQL Connection', () => {
+  const { db, close } = connect<Database>({ uri: 'mysql://root:root@localhost:3306/test' })
   const qb = queryBuilder<Database>()
 
   beforeAll(() => db.truncate('user'))
