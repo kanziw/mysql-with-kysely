@@ -1,13 +1,8 @@
-import { WithSchema, connect, queryBuilder } from '../index'
-import type { User } from './fixtures/model'
-
-type Database = {
-  user: WithSchema<User>
-}
+import { Database, qb } from './fixtures/mysql'
+import { connect } from '../index'
 
 describe.skip('Integration Test with Real MySQL Connection', () => {
   const { db, close } = connect<Database>({ uri: 'mysql://root:root@localhost:3306/test' })
-  const qb = queryBuilder<Database>()
 
   beforeAll(() => db.truncate('user'))
   afterAll(() => close())

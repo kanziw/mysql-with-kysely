@@ -1,4 +1,4 @@
-import type { Pool, PoolConnection, ResultSetHeader } from 'mysql2/promise'
+import type { Pool, PoolConnection, ResultSetHeader, QueryError } from 'mysql2/promise'
 import type {
   DeleteQueryBuilder,
   DeleteResult,
@@ -28,6 +28,8 @@ export interface MySql<Database> extends Query<Database> {
   truncate(tableName: keyof Database): Promise<void>;
 }
 
+const noop = (..._args: string[]) => undefined
+
 const query = <Database>(connection: PoolConnection): Query<Database> => {
   const _execute = async <T>(sql: string, parameters: readonly unknown[]) => {
     const [occurredAt, before] = [new Date(), performance.now()]
@@ -37,7 +39,7 @@ const query = <Database>(connection: PoolConnection): Query<Database> => {
       return (result ?? [])[0] as unknown as T
     } finally {
       const durationMs = performance.now() - before
-      console.log(JSON.stringify({ sql, duration_ms: durationMs, occurred_at: occurredAt }))
+      noop(JSON.stringify({ sql, duration_ms: durationMs, occurred_at: occurredAt }))
     }
   }
 
@@ -110,4 +112,11 @@ export const mysql = <Database>(pool: Pool): MySql<Database> => {
       })
     },
   }
+}
+
+export const isDuplicatedError = (err: unknown): boolean => {
+  if (!(err instanceof Error)) {
+    return false
+  }
+  return (err as QueryError).errno === 1062
 }

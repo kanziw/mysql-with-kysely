@@ -24,6 +24,7 @@
     "eslint-plugin-n": "^15.1.0",
     "eslint-plugin-promise": "^6.0.0",
     "jest": "^27.5.1",
+    "jest-mock-extended": "^2.0.5",
     "lodash": "^4.17.21",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.1.4",

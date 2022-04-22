@@ -4443,6 +4443,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jest-mock-extended@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "jest-mock-extended@npm:2.0.5"
+  dependencies:
+    ts-essentials: ^7.0.3
+  peerDependencies:
+    jest: ^24.0.0 || ^25.0.0 || ^26.0.0 || ^27.0.0
+    typescript: ^3.0.0 || ^4.0.0
+  checksum: ffc59a33988207bf504918aedaecd29bfc4b491a3ba221301925a5a1fcce2a71ad2ca1165363834105d76345869c527c407a381c07c4125ea41f158c6b15f683
+  languageName: node
+  linkType: hard
+
 "jest-mock@npm:^27.5.1":
   version: 27.5.1
   resolution: "jest-mock@npm:27.5.1"
@@ -5219,6 +5231,7 @@ __metadata:
     eslint-plugin-n: ^15.1.0
     eslint-plugin-promise: ^6.0.0
     jest: ^27.5.1
+    jest-mock-extended: ^2.0.5
     kysely: ^0.18.1
     lodash: ^4.17.21
     mysql2: ^2.3.3
@@ -6392,6 +6405,15 @@ __metadata:
   dependencies:
     punycode: ^2.1.1
   checksum: ffe6049b9dca3ae329b059aada7f515b0f0064c611b39b51ff6b53897e954650f6f63d9319c6c008d36ead477c7b55e5f64c9dc60588ddc91ff720d64eb710b3
+  languageName: node
+  linkType: hard
+
+"ts-essentials@npm:^7.0.3":
+  version: 7.0.3
+  resolution: "ts-essentials@npm:7.0.3"
+  peerDependencies:
+    typescript: ">=3.7.0"
+  checksum: 74d75868acf7f8b95e447d8b3b7442ca21738c6894e576df9917a352423fde5eb43c5651da5f78997da6061458160ae1f6b279150b42f47ccc58b73e55acaa2f
   languageName: node
   linkType: hard
 

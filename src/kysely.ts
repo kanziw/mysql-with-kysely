@@ -1,4 +1,4 @@
-import { QueryResult, ColumnType, Generated, Kysely, KyselyPlugin, MysqlDialect, OperationNodeTransformer, PluginTransformQueryArgs, PluginTransformResultArgs, RootOperationNode, SelectQueryNode, UnknownRow, LimitNode } from 'kysely'
+import { QueryResult, ColumnType, Generated, Kysely, KyselyPlugin, MysqlDialect, OperationNodeTransformer, PluginTransformQueryArgs, PluginTransformResultArgs, RootOperationNode, SelectQueryNode, UnknownRow, LimitNode, Selectable } from 'kysely'
 
 export type WithPkId<Schema> = { id: Generated<string> } & Omit<Schema, 'id'>
 
@@ -10,6 +10,9 @@ type DataLifecycleTracker = {
 export type WithDataLifecycleTracker<Schema> = DataLifecycleTracker & Omit<Schema, 'created_at' | 'updated_at'>
 
 export type WithSchema<Schema> = WithPkId<WithDataLifecycleTracker<Schema>>;
+export type SelectableSchema<Database> = {
+  [key in keyof Database]: Selectable<Database[key]>
+}
 
 const isValidNumber = (value: unknown): value is number => typeof value === 'number' && !Number.isNaN(value)
 
