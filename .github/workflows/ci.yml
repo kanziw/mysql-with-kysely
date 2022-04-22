@@ -24,6 +24,7 @@ jobs:
         with:
           node-version: '16'
 
-      - name: Test
-        run: |
-          yarn test
+      - name: Test with coverage
+        uses: ArtiomTr/jest-coverage-report-action@v2
+        with:
+          package-manager: yarn
