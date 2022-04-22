@@ -9,7 +9,7 @@ import type {
   UpdateQueryBuilder,
   UpdateResult,
 } from 'kysely'
-import { setTimeout as delay } from 'timers/promises'
+import { cancellableDelay } from './lib'
 
 type QueryType<Result, Database> = SelectQueryBuilder<Database, keyof Database, Result>;
 type ExecuteType =
@@ -67,11 +67,13 @@ export const mysql = <Database>(pool: Pool): MySql<Database> => {
   }
   return {
     ping: async () => {
+      const { promise, cancel } = cancellableDelay(3000)
       const isSuccess = await Promise.race([
         withConnection((connection) => connection.ping())
           .then(() => true)
-          .catch(() => false),
-        delay(3000).then(() => false),
+          .catch(() => false)
+          .finally(() => cancel()),
+        promise.then(() => false),
       ])
       if (!isSuccess) {
         throw new Error('MySQL ping failed')

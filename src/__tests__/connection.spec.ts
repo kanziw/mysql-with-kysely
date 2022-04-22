@@ -1,5 +1,11 @@
+import { connect } from '../connection'
+
 describe('Connection', () => {
-  test('1 + 1', () => {
-    expect(1 + 1).toEqual(2)
+  const { db, close } = connect()
+
+  afterAll(() => close())
+
+  test('ping', async () => {
+    await db.ping()
   })
 })

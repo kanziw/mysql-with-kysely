@@ -1,7 +1,7 @@
 import { createPool } from 'mysql2/promise'
 import { mysql } from './mysql'
 
-export const connect = async <Database>() => {
+export const connect = <Database>() => {
   const mysqlPool = createPool({
     uri: 'mysql://root:root@localhost:3306/test',
     supportBigNumbers: true,
@@ -11,6 +11,6 @@ export const connect = async <Database>() => {
 
   return {
     db: mysql<Database>(mysqlPool),
-    end: () => mysqlPool.end(),
+    close: () => mysqlPool.end(),
   }
 }
