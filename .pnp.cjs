@@ -54,6 +54,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest", "virtual:257ac4332fe902f75475b8e3a94f6c49db19d1a582d2336c8242a01141b827cea122cdea608e1a26847d119aea2121d827d676636b9ea6ad33b94f18a772f295#npm:27.5.1"],\
             ["jest-mock-extended", "virtual:257ac4332fe902f75475b8e3a94f6c49db19d1a582d2336c8242a01141b827cea122cdea608e1a26847d119aea2121d827d676636b9ea6ad33b94f18a772f295#npm:2.0.5"],\
             ["kysely", "npm:0.18.1"],\
+            ["lodash", "npm:4.17.21"],\
             ["mysql2", "npm:2.3.3"],\
             ["rimraf", "npm:3.0.2"],\
             ["ts-jest", "virtual:257ac4332fe902f75475b8e3a94f6c49db19d1a582d2336c8242a01141b827cea122cdea608e1a26847d119aea2121d827d676636b9ea6ad33b94f18a772f295#npm:27.1.4"],\
@@ -7272,6 +7273,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest", "virtual:257ac4332fe902f75475b8e3a94f6c49db19d1a582d2336c8242a01141b827cea122cdea608e1a26847d119aea2121d827d676636b9ea6ad33b94f18a772f295#npm:27.5.1"],\
             ["jest-mock-extended", "virtual:257ac4332fe902f75475b8e3a94f6c49db19d1a582d2336c8242a01141b827cea122cdea608e1a26847d119aea2121d827d676636b9ea6ad33b94f18a772f295#npm:2.0.5"],\
             ["kysely", "npm:0.18.1"],\
+            ["lodash", "npm:4.17.21"],\
             ["mysql2", "npm:2.3.3"],\
             ["rimraf", "npm:3.0.2"],\
             ["ts-jest", "virtual:257ac4332fe902f75475b8e3a94f6c49db19d1a582d2336c8242a01141b827cea122cdea608e1a26847d119aea2121d827d676636b9ea6ad33b94f18a772f295#npm:27.1.4"],\
