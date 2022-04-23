@@ -9,7 +9,7 @@ import type {
   UpdateQueryBuilder,
   UpdateResult,
 } from 'kysely'
-import { cancellableDelay } from './lib'
+import { cancellableDelay } from '@kanziw/time'
 
 type QueryType<Result, Database> = SelectQueryBuilder<Database, keyof Database, Result>;
 type ExecuteType =
@@ -28,6 +28,7 @@ export interface MySql<Database> extends Query<Database> {
   truncate(tableName: keyof Database): Promise<void>;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const noop = (..._args: string[]) => undefined
 
 const query = <Database>(connection: PoolConnection): Query<Database> => {
@@ -44,7 +45,7 @@ const query = <Database>(connection: PoolConnection): Query<Database> => {
   }
 
   return {
-    async query (kyselyQb) {
+    async query(kyselyQb) {
       const { sql, parameters } = kyselyQb.compile()
       if (!sql.startsWith('select')) {
         throw new Error('Only SELECT query is possible')
@@ -52,7 +53,7 @@ const query = <Database>(connection: PoolConnection): Query<Database> => {
       return _execute(sql, parameters)
     },
 
-    async execute (kyselyQb) {
+    async execute(kyselyQb) {
       const { sql, parameters } = kyselyQb.compile()
       if (sql.startsWith('select')) {
         throw new Error('SELECT query must use db.query')
@@ -70,7 +71,7 @@ export const mysql = <Database>(pool: Pool): MySql<Database> => {
     return fn(connection).finally(() => connection.release())
   }
   return {
-    async ping () {
+    async ping() {
       const { promise, cancel } = cancellableDelay(3000)
       const isSuccess = await Promise.race([
         withConnection((connection) => connection.ping())
@@ -84,22 +85,22 @@ export const mysql = <Database>(pool: Pool): MySql<Database> => {
       }
     },
 
-    async query (kyselyQb) {
+    async query(kyselyQb) {
       return withConnection((connection) => query(connection).query(kyselyQb))
     },
 
-    async execute (kyselyQb) {
+    async execute(kyselyQb) {
       return withConnection((connection) => query(connection).execute(kyselyQb))
     },
 
-    async truncate (tableName) {
+    async truncate(tableName) {
       return withConnection<void>(async connection => {
         await connection.execute(`truncate table ${tableName}`)
       })
     },
 
-    async withTransaction (fn) {
-      return withConnection(async (connection) => {
+    async withTransaction(fn) {
+      return withConnection(async(connection) => {
         await connection.beginTransaction()
         try {
           const result = await fn(query(connection))

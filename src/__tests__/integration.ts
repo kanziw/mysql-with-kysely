@@ -8,13 +8,13 @@ describe('Integration Test with Real MySQL Connection', () => {
   afterAll(() => close())
 
   describe('Connection', () => {
-    test('ping', async () => {
+    test('ping', async() => {
       await db.ping()
     })
   })
 
   describe('Query', () => {
-    test('select', async () => {
+    test('select', async() => {
       const users = await db.query(qb
         .selectFrom('user')
         .selectAll()
@@ -27,7 +27,7 @@ describe('Integration Test with Real MySQL Connection', () => {
   })
 
   describe('Execute', () => {
-    test('insert', async () => {
+    test('insert', async() => {
       const { insertId } = await db.execute(qb
         .insertInto('user')
         .values({
@@ -39,7 +39,7 @@ describe('Integration Test with Real MySQL Connection', () => {
       expect(insertId).toBe(1)
     })
 
-    test('update', async () => {
+    test('update', async() => {
       const { affectedRows } = await db.execute(qb
         .updateTable('user')
         .set({ name: 'kanziw' })
@@ -49,7 +49,7 @@ describe('Integration Test with Real MySQL Connection', () => {
       expect(affectedRows).toBe(0)
     })
 
-    test('delete', async () => {
+    test('delete', async() => {
       const { affectedRows } = await db.execute(qb
         .deleteFrom('user')
         .where('id', '=', '9999'),
