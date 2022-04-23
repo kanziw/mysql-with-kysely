@@ -22,54 +22,64 @@ interface Query<Database> {
   execute(kyselyQb: ExecuteType): Promise<ResultSetHeader>;
 }
 
+export type SqlQueryMetric = {
+  sql: string,
+  parameters: readonly unknown[],
+  normalizedSql: string,
+  durationMs: number,
+  occurredAt: Date,
+}
+export type Subscriber = (sqlQueryMetric: SqlQueryMetric) => void;
+
 export interface MySql<Database> extends Query<Database> {
   ping(): Promise<void>;
   withTransaction<T = void>(fn: (connection: Query<Database>) => Promise<T>): Promise<T>;
   truncate(tableName: keyof Database): Promise<void>;
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const noop = (..._args: string[]) => undefined
-
-const query = <Database>(connection: PoolConnection): Query<Database> => {
-  const _execute = async <T>(sql: string, parameters: readonly unknown[]) => {
-    const [occurredAt, before] = [new Date(), performance.now()]
-
-    try {
-      const result = await connection.execute(sql, parameters)
-      return (result ?? [])[0] as unknown as T
-    } finally {
-      const durationMs = performance.now() - before
-      noop(JSON.stringify({ sql, duration_ms: durationMs, occurred_at: occurredAt }))
-    }
-  }
-
-  return {
-    async query(kyselyQb) {
-      const { sql, parameters } = kyselyQb.compile()
-      if (!sql.startsWith('select')) {
-        throw new Error('Only SELECT query is possible')
-      }
-      return _execute(sql, parameters)
-    },
-
-    async execute(kyselyQb) {
-      const { sql, parameters } = kyselyQb.compile()
-      if (sql.startsWith('select')) {
-        throw new Error('SELECT query must use db.query')
-      }
-      return _execute<ResultSetHeader>(sql, parameters)
-    },
-  }
+  subscribe(subscriber: Subscriber): void;
 }
 
 export const mysql = <Database>(pool: Pool): MySql<Database> => {
+  const subscribers: Subscriber[] = []
+
   const withConnection = async <T>(
     fn: (connection: PoolConnection) => Promise<T>,
   ) => {
     const connection = await pool.getConnection()
     return fn(connection).finally(() => connection.release())
   }
+
+  const query = <Database>(connection: PoolConnection): Query<Database> => {
+    const _execute = async <T>(sql: string, parameters: readonly unknown[]) => {
+      const [occurredAt, before] = [new Date(), performance.now()]
+
+      try {
+        const result = await connection.execute(sql, parameters)
+        return (result ?? [])[0] as unknown as T
+      } finally {
+        const durationMs = performance.now() - before
+        subscribers.forEach(subscriber => subscriber({ sql, parameters, normalizedSql: sql, durationMs, occurredAt }))
+      }
+    }
+
+    return {
+      async query(kyselyQb) {
+        const { sql, parameters } = kyselyQb.compile()
+        if (!sql.startsWith('select')) {
+          throw new Error('Only SELECT query is possible')
+        }
+        return _execute(sql, parameters)
+      },
+
+      async execute(kyselyQb) {
+        const { sql, parameters } = kyselyQb.compile()
+        if (sql.startsWith('select')) {
+          throw new Error('SELECT query must use db.query')
+        }
+        return _execute<ResultSetHeader>(sql, parameters)
+      },
+    }
+  }
+
   return {
     async ping() {
       const { promise, cancel } = cancellableDelay(3000)
@@ -111,6 +121,10 @@ export const mysql = <Database>(pool: Pool): MySql<Database> => {
           throw err
         }
       })
+    },
+
+    subscribe(subscriber) {
+      subscribers.push(subscriber)
     },
   }
 }
