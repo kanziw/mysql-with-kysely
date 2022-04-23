@@ -9,13 +9,13 @@ describe('Subscribe', () => {
     const sqlQueryMetrics: SqlQueryMetric[] = []
     db.subscribe(sqlQueryMetric => sqlQueryMetrics.push(sqlQueryMetric))
 
-    await db.query(qb.selectFrom('user').selectAll().where('id', '=', '1'))
+    await db.query(qb.selectFrom('user').selectAll().where('id', 'in', ['1', '2']))
 
     expect(sqlQueryMetrics).toHaveLength(1)
     expect(sqlQueryMetrics[0]).toEqual(expect.objectContaining({
-      sql: 'select * from `user` where `id` = ?',
-      parameters: ['1'],
-      normalizedSql: 'select * from `user` where `id` = ?',
+      sql: 'select * from `user` where `id` in (?, ?)',
+      parameters: ['1', '2'],
+      normalizedSql: 'select * from `user` where `id` in (?)',
     }))
   })
 

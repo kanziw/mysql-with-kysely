@@ -10,6 +10,7 @@ import type {
   UpdateResult,
 } from 'kysely'
 import { cancellableDelay } from '@kanziw/time'
+import { normalizeSql } from './normalizeSql'
 
 type QueryType<Result, Database> = SelectQueryBuilder<Database, keyof Database, Result>;
 type ExecuteType =
@@ -57,7 +58,7 @@ export const mysql = <Database>(pool: Pool): MySql<Database> => {
         return (result ?? [])[0] as unknown as T
       } finally {
         const durationMs = performance.now() - before
-        subscribers.forEach(subscriber => subscriber({ sql, parameters, normalizedSql: sql, durationMs, occurredAt }))
+        subscribers.forEach(subscriber => subscriber({ sql, parameters, normalizedSql: normalizeSql(sql), durationMs, occurredAt }))
       }
     }
 
