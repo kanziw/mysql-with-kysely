@@ -5,6 +5,8 @@
 
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
+  ...require('./jest.config.js'),
+  testPathIgnorePatterns: [],
   testMatch: [
     '**/__tests__/integration.ts',
   ],

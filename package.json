@@ -34,8 +34,8 @@
     "typescript": "^4.6.3"
   },
   "dependencies": {
-    "@kanziw/error": "^0.0.2",
-    "@kanziw/time": "^0.0.1",
+    "@kanziw/error": "^0.0.4",
+    "@kanziw/time": "^0.0.3",
     "kysely": "^0.18.1",
     "mysql2": "^2.3.3"
   }

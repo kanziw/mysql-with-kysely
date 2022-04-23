@@ -1583,17 +1583,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@kanziw/error@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "@kanziw/error@npm:0.0.2"
-  checksum: fe55bb3a814902cd32e7736c86623c188749dca21f9d22a96ae36be598cd6bc1aab90d564736899106311b1e3f37429cc311fbab177cd3dc885bf45a1f271dfa
+"@kanziw/error@npm:^0.0.4":
+  version: 0.0.4
+  resolution: "@kanziw/error@npm:0.0.4"
+  checksum: 0e9bdebe28622f19148261d963eb6cda9afc109cdca61c67ae5114f23463757a6691d211497b8c9b0fb80a88549d7b6397e692f6b67bbd0b9342b6b1faa6008e
   languageName: node
   linkType: hard
 
-"@kanziw/time@npm:^0.0.1":
-  version: 0.0.1
-  resolution: "@kanziw/time@npm:0.0.1"
-  checksum: 022b24b3253f438fe0b36cbf1bfcabe215dce7bdada4443f5e2b990a682cdeabcd5a47f477d7f0f6a3ee2cb3c4a913a4bee868c41483ee70315abff425c7ad07
+"@kanziw/time@npm:^0.0.3":
+  version: 0.0.3
+  resolution: "@kanziw/time@npm:0.0.3"
+  checksum: b8a2c25ee344af83797c73f183f68504bf36dc2b825f41b3e8c9fd5bd21bca7a6235f7c7db8a37b205be85df560c5f318dabd22a7f529cb26169d404f64058f8
   languageName: node
   linkType: hard
 
@@ -5257,8 +5257,8 @@ __metadata:
     "@babel/core": ^7.17.9
     "@babel/preset-env": ^7.16.11
     "@babel/preset-typescript": ^7.16.7
-    "@kanziw/error": ^0.0.2
-    "@kanziw/time": ^0.0.1
+    "@kanziw/error": ^0.0.4
+    "@kanziw/time": ^0.0.3
     "@rmp135/sql-ts": ^1.13.0
     "@types/jest": ^27.4.1
     "@types/node": ^17.0.25

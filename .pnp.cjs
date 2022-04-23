@@ -36,8 +36,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/core", "npm:7.17.9"],\
             ["@babel/preset-env", "virtual:257ac4332fe902f75475b8e3a94f6c49db19d1a582d2336c8242a01141b827cea122cdea608e1a26847d119aea2121d827d676636b9ea6ad33b94f18a772f295#npm:7.16.11"],\
             ["@babel/preset-typescript", "virtual:257ac4332fe902f75475b8e3a94f6c49db19d1a582d2336c8242a01141b827cea122cdea608e1a26847d119aea2121d827d676636b9ea6ad33b94f18a772f295#npm:7.16.7"],\
-            ["@kanziw/error", "npm:0.0.2"],\
-            ["@kanziw/time", "npm:0.0.1"],\
+            ["@kanziw/error", "npm:0.0.4"],\
+            ["@kanziw/time", "npm:0.0.3"],\
             ["@rmp135/sql-ts", "virtual:257ac4332fe902f75475b8e3a94f6c49db19d1a582d2336c8242a01141b827cea122cdea608e1a26847d119aea2121d827d676636b9ea6ad33b94f18a772f295#npm:1.13.0"],\
             ["@types/jest", "npm:27.4.1"],\
             ["@types/node", "npm:17.0.25"],\
@@ -2776,19 +2776,19 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@kanziw/error", [\
-        ["npm:0.0.2", {\
-          "packageLocation": "./.yarn/cache/@kanziw-error-npm-0.0.2-7403977d9f-fe55bb3a81.zip/node_modules/@kanziw/error/",\
+        ["npm:0.0.4", {\
+          "packageLocation": "./.yarn/cache/@kanziw-error-npm-0.0.4-271b2e5e1d-0e9bdebe28.zip/node_modules/@kanziw/error/",\
           "packageDependencies": [\
-            ["@kanziw/error", "npm:0.0.2"]\
+            ["@kanziw/error", "npm:0.0.4"]\
           ],\
           "linkType": "HARD"\
         }]\
       ]],\
       ["@kanziw/time", [\
-        ["npm:0.0.1", {\
-          "packageLocation": "./.yarn/cache/@kanziw-time-npm-0.0.1-368d822822-022b24b325.zip/node_modules/@kanziw/time/",\
+        ["npm:0.0.3", {\
+          "packageLocation": "./.yarn/cache/@kanziw-time-npm-0.0.3-0e71bfb895-b8a2c25ee3.zip/node_modules/@kanziw/time/",\
           "packageDependencies": [\
-            ["@kanziw/time", "npm:0.0.1"]\
+            ["@kanziw/time", "npm:0.0.3"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -7255,8 +7255,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/core", "npm:7.17.9"],\
             ["@babel/preset-env", "virtual:257ac4332fe902f75475b8e3a94f6c49db19d1a582d2336c8242a01141b827cea122cdea608e1a26847d119aea2121d827d676636b9ea6ad33b94f18a772f295#npm:7.16.11"],\
             ["@babel/preset-typescript", "virtual:257ac4332fe902f75475b8e3a94f6c49db19d1a582d2336c8242a01141b827cea122cdea608e1a26847d119aea2121d827d676636b9ea6ad33b94f18a772f295#npm:7.16.7"],\
-            ["@kanziw/error", "npm:0.0.2"],\
-            ["@kanziw/time", "npm:0.0.1"],\
+            ["@kanziw/error", "npm:0.0.4"],\
+            ["@kanziw/time", "npm:0.0.3"],\
             ["@rmp135/sql-ts", "virtual:257ac4332fe902f75475b8e3a94f6c49db19d1a582d2336c8242a01141b827cea122cdea608e1a26847d119aea2121d827d676636b9ea6ad33b94f18a772f295#npm:1.13.0"],\
             ["@types/jest", "npm:27.4.1"],\
             ["@types/node", "npm:17.0.25"],\
