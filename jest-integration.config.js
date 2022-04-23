@@ -8,6 +8,6 @@ module.exports = {
   ...require('./jest.config.js'),
   testPathIgnorePatterns: [],
   testMatch: [
-    '**/__tests__/integration.ts',
+    '**/__tests__/integration*.ts',
   ],
 }

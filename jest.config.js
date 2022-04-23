@@ -6,7 +6,7 @@
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
   testPathIgnorePatterns: [
-    '__tests__/integration.ts',
+    '__tests__/integration*.ts',
     '__tests__/fixtures/',
   ],
 }
