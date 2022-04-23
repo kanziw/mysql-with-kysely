@@ -1,36 +1,7 @@
-import type { Pool, PoolConnection, ResultSetHeader, QueryError } from 'mysql2/promise'
-import type {
-  DeleteQueryBuilder,
-  DeleteResult,
-  InsertQueryBuilder,
-  InsertResult,
-  Selectable,
-  SelectQueryBuilder,
-  UpdateQueryBuilder,
-  UpdateResult,
-} from 'kysely'
+import type { Pool, PoolConnection, QueryError } from 'mysql2/promise'
 import { cancellableDelay } from '@kanziw/time'
-import { normalizeSql } from './normalizeSql'
-
-type QueryType<Result, Database> = SelectQueryBuilder<Database, keyof Database, Result>;
-type ExecuteType =
-  InsertQueryBuilder<never, never, InsertResult>
-  | UpdateQueryBuilder<never, never, never, UpdateResult>
-  | DeleteQueryBuilder<never, never, DeleteResult>;
-
-interface Query<Database> {
-  query<Result>(kyselyQb: QueryType<Result, Database>): Promise<Array<Selectable<Result>>>;
-  execute(kyselyQb: ExecuteType): Promise<ResultSetHeader>;
-}
-
-export type SqlQueryMetric = {
-  sql: string,
-  parameters: readonly unknown[],
-  normalizedSql: string,
-  durationMs: number,
-  occurredAt: Date,
-}
-export type Subscriber = (sqlQueryMetric: SqlQueryMetric) => void;
+import { Subscriber, withSqlQueryMetricPublish } from './logging'
+import { Query, queryWithSubscribers } from './query'
 
 export interface MySql<Database> extends Query<Database> {
   ping(): Promise<void>;
@@ -49,37 +20,7 @@ export const mysql = <Database>(pool: Pool): MySql<Database> => {
     return fn(connection).finally(() => connection.release())
   }
 
-  const query = <Database>(connection: PoolConnection): Query<Database> => {
-    const _execute = async <T>(sql: string, parameters: readonly unknown[]) => {
-      const [occurredAt, before] = [new Date(), performance.now()]
-
-      try {
-        const result = await connection.execute(sql, parameters)
-        return (result ?? [])[0] as unknown as T
-      } finally {
-        const durationMs = performance.now() - before
-        subscribers.forEach(subscriber => subscriber({ sql, parameters, normalizedSql: normalizeSql(sql), durationMs, occurredAt }))
-      }
-    }
-
-    return {
-      async query(kyselyQb) {
-        const { sql, parameters } = kyselyQb.compile()
-        if (!sql.startsWith('select')) {
-          throw new Error('Only SELECT query is possible')
-        }
-        return _execute(sql, parameters)
-      },
-
-      async execute(kyselyQb) {
-        const { sql, parameters } = kyselyQb.compile()
-        if (sql.startsWith('select')) {
-          throw new Error('SELECT query must use db.query')
-        }
-        return _execute<ResultSetHeader>(sql, parameters)
-      },
-    }
-  }
+  const query = queryWithSubscribers(subscribers)
 
   return {
     async ping() {
@@ -105,8 +46,11 @@ export const mysql = <Database>(pool: Pool): MySql<Database> => {
     },
 
     async truncate(tableName) {
-      return withConnection<void>(async connection => {
-        await connection.execute(`truncate table ${tableName}`)
+      return withConnection<void>(connection => {
+        const sql = `truncate table ${tableName}`
+        return withSqlQueryMetricPublish(sql, [], subscribers, async() => {
+          await connection.execute(sql)
+        })
       })
     },
 

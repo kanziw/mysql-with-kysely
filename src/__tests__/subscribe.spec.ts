@@ -1,6 +1,6 @@
 import { qb } from './fixtures/mysql'
 import { createMockMySqlHelper } from '../test'
-import { SqlQueryMetric } from '../mysql'
+import { SqlQueryMetric } from '../index'
 
 describe('Subscribe', () => {
   test('add subscriber', async() => {
