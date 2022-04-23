@@ -1,8 +1,8 @@
 import { DeepMockProxy, mockDeep } from 'jest-mock-extended'
 import type { Pool, PoolConnection } from 'mysql2/promise'
+import { wrapUnknownError } from '@kanziw/error'
 
 import { MySql, mysql } from '../index'
-import { wrapUnknownError } from '../lib'
 
 type MockMySql = DeepMockProxy<Pool> & {
   _mockPoolConnection: DeepMockProxy<PoolConnection>,
@@ -47,6 +47,7 @@ export const createMockMySqlHelper = <Database>(): MockMySqlHelper<Database> => 
         mockMySql._mockPoolConnection.execute.mockRejectedValueOnce(resp)
         return
       }
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       mockMySql._mockPoolConnection.execute.mockResolvedValueOnce([resp])
     },

@@ -3,7 +3,7 @@ import { createMockMySqlHelper, FakeDuplicateError } from '../test'
 import { isDuplicatedError } from '../mysql'
 
 describe('MockMySqlHelper', () => {
-  test('Select', async () => {
+  test('Select', async() => {
     const fakeUser = {
       id: '1',
       name: 'kanziw',
@@ -28,7 +28,7 @@ describe('MockMySqlHelper', () => {
     checkExecutedSqls()
   })
 
-  test('Insert', async () => {
+  test('Insert', async() => {
     const { db, mockMySqlCall, checkExecutedSqls } = createMockMySqlHelper()
 
     mockMySqlCall(
@@ -46,7 +46,7 @@ describe('MockMySqlHelper', () => {
     checkExecutedSqls()
   })
 
-  test('DuplicatedError', async () => {
+  test('DuplicatedError', async() => {
     const { db, mockMySqlCall, checkExecutedSqls } = createMockMySqlHelper()
 
     mockMySqlCall(
@@ -65,7 +65,7 @@ describe('MockMySqlHelper', () => {
     checkExecutedSqls()
   })
 
-  test('Update', async () => {
+  test('Update', async() => {
     const { db, mockMySqlCall, checkExecutedSqls } = createMockMySqlHelper()
 
     mockMySqlCall(
@@ -84,7 +84,7 @@ describe('MockMySqlHelper', () => {
     checkExecutedSqls()
   })
 
-  test('Delete', async () => {
+  test('Delete', async() => {
     const { db, mockMySqlCall, checkExecutedSqls } = createMockMySqlHelper()
 
     mockMySqlCall(

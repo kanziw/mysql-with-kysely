@@ -17,7 +17,7 @@ export type SelectableSchema<Database> = {
 const isValidNumber = (value: unknown): value is number => typeof value === 'number' && !Number.isNaN(value)
 
 class LimitCasingTransformer extends OperationNodeTransformer {
-  protected override transformSelectQuery (
+  protected override transformSelectQuery(
     node: SelectQueryNode,
   ): SelectQueryNode {
     return isValidNumber(node.limit?.limit.value)
@@ -29,15 +29,15 @@ class LimitCasingTransformer extends OperationNodeTransformer {
 class LimitCasingPlugin implements KyselyPlugin {
   readonly #transformer: LimitCasingTransformer
 
-  constructor () {
+  constructor() {
     this.#transformer = new LimitCasingTransformer()
   }
 
-  transformQuery (args: PluginTransformQueryArgs): RootOperationNode {
+  transformQuery(args: PluginTransformQueryArgs): RootOperationNode {
     return this.#transformer.transformNode(args.node)
   }
 
-  async transformResult (
+  async transformResult(
     args: PluginTransformResultArgs,
   ): Promise<QueryResult<UnknownRow>> {
     return args.result
