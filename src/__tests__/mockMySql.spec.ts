@@ -101,4 +101,29 @@ describe('MockMySqlHelper', () => {
     expect(affectedRows).toBe(1)
     checkExecutedSqls()
   })
+
+  test('Raw SQL', async() => {
+    const { db, mockMySqlCall, checkExecutedSqls } = createMockMySqlHelper()
+
+    mockMySqlCall(
+      'update `user` set `name` = ?, `created_at` = NOW(), `updated_at` = DATE_ADD(updated_at, INTERVAL 1 SECOND) where `id` = ?',
+      ['kanziw', '9999'],
+      { affectedRows: 1 },
+    )
+
+    const updatedAt = 'updated_at'
+
+    const { affectedRows } = await db.execute(qb
+      .updateTable('user')
+      .set({
+        name: 'kanziw',
+        created_at: qb.sql`NOW()`,
+        [updatedAt]: qb.raw(`DATE_ADD(${updatedAt}, INTERVAL 1 SECOND)`),
+      })
+      .where('id', '=', '9999'),
+    )
+
+    expect(affectedRows).toBe(1)
+    checkExecutedSqls()
+  })
 })
