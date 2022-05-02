@@ -1,4 +1,4 @@
-import { ColumnType, Generated, Kysely, MysqlDialect, Selectable } from 'kysely'
+import { ColumnType, Generated, Insertable, Kysely, MysqlDialect, Selectable, sql } from 'kysely'
 import { LimitCasingPlugin } from './kyselyPlugins'
 
 export type WithPkId<Schema> = { id: Generated<string> } & Omit<Schema, 'id'>
@@ -14,8 +14,21 @@ export type WithSchema<Schema> = WithPkId<WithDataLifecycleTracker<Schema>>;
 export type SelectableSchema<Database> = {
   [key in keyof Database]: Selectable<Database[key]>
 }
+export type InsertableSchema<Database> = {
+  [key in keyof Database]: Insertable<Database[key]>
+}
 
-export const queryBuilder = <Database>() => new Kysely<Database>({
+export class MySqlWithKysely<Database> extends Kysely<Database> {
+  public raw<T>(rawSql: string) {
+    return sql<T>(rawSql as unknown as TemplateStringsArray)
+  }
+
+  public sql<T>(rawSql: TemplateStringsArray, ...parameters: unknown[]) {
+    return sql<T>(rawSql, ...parameters)
+  }
+}
+
+export const queryBuilder = <Database>() => new MySqlWithKysely<Database>({
   dialect: new MysqlDialect({}),
   plugins: [new LimitCasingPlugin()],
 })
