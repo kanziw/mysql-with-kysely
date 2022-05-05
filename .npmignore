@@ -10,7 +10,8 @@ dist/__tests__/
 
 .editorconfig
 .eslint*
-.pnp.*.js
+.nvmrc
+.pnp.*js
 *.yml
 *.config.js
 *.json

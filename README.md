@@ -2,11 +2,13 @@
 
 ![CI](https://github.com/kanziw/mysql-with-kysely/actions/workflows/ci.yml/badge.svg) [![codecov](https://codecov.io/gh/kanziw/mysql-with-kysely/branch/main/graph/badge.svg?token=DYH0PQHQ9R)](https://codecov.io/gh/kanziw/mysql-with-kysely)
 
+
 ## Installation
 
 ```zsh
 $ yarn add mysql-with-kysely
 ```
+
 
 ## Usages
 
@@ -21,14 +23,16 @@ type Database = {
 
 // for your code
 type Schema = SelectableSchema<Database>
-
-const qb = queryBuilder<Database>()
+type InsertValueSchema = InsertableSchema<Database>
 
 const { db, close } = connect<Database>({ uri: 'mysql://root:root@localhost:3306/test' });
 
 // collect your metrics
 db.subscribe(({ sql, normalizedSql, durationMs, occurredAt, parameters }) => {
 })
+
+// your query builder
+const qb = queryBuilder<Database>()
 
 // write your codes type safely
 // type of users is `Array<Schema['user']>`
@@ -39,9 +43,25 @@ const users = await db.query(qb
   .limit(1),
 )
 
+// type of value is `InsertValueSchema['user']`
+const value = { name: 'kanziw', email: 'kanziwoong@gmail.com' }     
+const { insertId } = await db.execute(qb
+  .insertInto('user')
+  .values(value),
+)
+
 // close MySQL connection
 await close()
 ```
+
+
+### Database type
+
+1. `WithPkId`: for auto increment `id` column
+2. `WithDataLifecycleTracker`
+    1. `created_at`: for `DATETIME DEFAULT CURRENT_TIMESTAMP`
+    2. `updated_at`: for `DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP`
+3. `WithSchema`: `WithPkId` & `WithDataLifecycleTracker`
 
 
 ## Recommended Usages Personally
