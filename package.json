@@ -1,6 +1,6 @@
 {
   "name": "mysql-with-kysely",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Use MySQL with kysely",
   "repository": {
     "type": "git",
@@ -64,5 +64,6 @@
     "rimraf": "^3.0.2",
     "ts-jest": "^27.1.4",
     "typescript": "^4.6.3"
-  }
+  },
+  "license": "MIT"
 }
