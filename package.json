@@ -1,10 +1,18 @@
 {
   "name": "mysql-with-kysely",
   "version": "0.0.2",
+  "description": "Use MySQL with kysely",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kanziw/mysql-with-kysely.git"
   },
+  "homepage": "https://github.com/kanziw/mysql-with-kysely#readme",
+  "keywords": [
+    "mysql",
+    "kysely",
+    "query builder",
+    "kanziw"
+  ],
   "author": {
     "name": "Jiwoong Jung",
     "email": "kanziwoong@gmail.com"
