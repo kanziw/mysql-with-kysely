@@ -19,7 +19,7 @@ $ yarn add mysql-with-kysely
 ## Usages
 
 ```ts
-import { queryBuilder, WithSchema, SelectableSchema } from 'mysql-with-kysely'
+import { InsertableSchema, SelectableSchema, WithSchema, connect, queryBuilder } from 'mysql-with-kysely'
 import type { User } from './model'
 
 // for query builder
