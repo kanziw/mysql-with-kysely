@@ -3,9 +3,6 @@ on:
 
 name: Publish
 
-env:
-  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -19,3 +16,5 @@ jobs:
       - name: Publish packages
         run: |
           yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
