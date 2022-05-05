@@ -1,10 +1,19 @@
 {
   "name": "mysql-with-kysely",
-  "version": "0.0.0-rc-8",
+  "version": "0.1.0",
+  "description": "Use MySQL with kysely",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kanziw/mysql-with-kysely.git"
   },
+  "homepage": "https://github.com/kanziw/mysql-with-kysely#readme",
+  "keywords": [
+    "mysql",
+    "kysely",
+    "query builder",
+    "Incorrect arguments to mysqld_stmt_execute",
+    "kanziw"
+  ],
   "author": {
     "name": "Jiwoong Jung",
     "email": "kanziwoong@gmail.com"
@@ -14,12 +23,23 @@
   "packageManager": "yarn@3.2.0",
   "scripts": {
     "clean": "rimraf dist/",
-    "build": "yarn clean && tsc && rimraf dist/__tests__/",
+    "build": "yarn clean && tsc",
     "db:sync": "mysqldef -uroot -proot test < ddl.sql && sql-ts -c dbconfig.json",
-    "lint": "eslint src",
+    "lint": "eslint .",
     "test": "jest",
     "test:integration": "jest -c jest-integration.config.js",
-    "publish": "yarn build && yarn npm publish --access public"
+    "publish": "yarn build && yarn publish-if-not-published"
+  },
+  "dependencies": {
+    "@kanziw/error": "^0.0.4",
+    "@kanziw/time": "^0.0.3",
+    "jest-mock-extended": "^2.0.5",
+    "kysely": "^0.18.1",
+    "mysql2": "^2.3.3"
+  },
+  "peerDependencies": {
+    "kysely": "^0.18.1",
+    "mysql2": "^2.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
@@ -40,15 +60,9 @@
     "husky": "^7.0.4",
     "jest": "^27.5.1",
     "lodash": "^4.17.21",
+    "publish-if-not-published": "^3.1.2",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.1.4",
     "typescript": "^4.6.3"
-  },
-  "dependencies": {
-    "@kanziw/error": "^0.0.4",
-    "@kanziw/time": "^0.0.3",
-    "jest-mock-extended": "^2.0.5",
-    "kysely": "^0.18.1",
-    "mysql2": "^2.3.3"
   }
 }

@@ -25,7 +25,9 @@ jobs:
           node-version: '16'
 
       - name: Test with coverage
-        uses: ArtiomTr/jest-coverage-report-action@v2
+        run: |
+          yarn test --coverage
+
+      - uses: codecov/codecov-action@v2
         with:
-          test-script: yarn jest
-          package-manager: yarn
+          verbose: true

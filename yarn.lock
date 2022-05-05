@@ -1816,6 +1816,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:^14.11.8":
+  version: 14.18.16
+  resolution: "@types/node@npm:14.18.16"
+  checksum: 1999799309dc8620a2adf9a5d5e48416af87321bae4c950b4aa8018fcef2c3b6c1fcf98c39eae06f6492c03a643a5a44e2bb3750cd2574d9cf7eac33bac50e24
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:^16.11.9":
   version: 16.11.27
   resolution: "@types/node@npm:16.11.27"
@@ -1827,6 +1834,13 @@ __metadata:
   version: 2.6.0
   resolution: "@types/prettier@npm:2.6.0"
   checksum: 946f1f82ce6f31664e023a5d65931c31b7d677b454f528f67dce851d72e7fcfe713076f4251b16c3646eecf1545f5f5b909b4962966341ed9ddf5b80113b3674
+  languageName: node
+  linkType: hard
+
+"@types/semver@npm:^7.3.9":
+  version: 7.3.9
+  resolution: "@types/semver@npm:7.3.9"
+  checksum: 60bfcfdfa7f937be2c6f4b37ddb6714fb0f27b05fe4cbdfdd596a97d35ed95d13ee410efdd88e72a66449d0384220bf20055ab7d6b5df10de4990fbd20e5cbe0
   languageName: node
   linkType: hard
 
@@ -1844,12 +1858,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/yargs-parser@npm:^20.2.1":
+  version: 20.2.2
+  resolution: "@types/yargs-parser@npm:20.2.2"
+  checksum: f5a57ba32b624e577c3c8c38c5dbf4531b92787b9323c15154232a083d2c6654d00df4ce8330bf048920775528d3162eddaa36429f746de0043eb34234acf4fd
+  languageName: node
+  linkType: hard
+
 "@types/yargs@npm:^16.0.0":
   version: 16.0.4
   resolution: "@types/yargs@npm:16.0.4"
   dependencies:
     "@types/yargs-parser": "*"
   checksum: caa21d2c957592fe2184a8368c8cbe5a82a6c2e2f2893722e489f842dc5963293d2f3120bc06fe3933d60a3a0d1e2eb269649fd6b1947fe1820f8841ba611dd9
+  languageName: node
+  linkType: hard
+
+"@types/yargs@npm:^17.0.7":
+  version: 17.0.10
+  resolution: "@types/yargs@npm:17.0.10"
+  dependencies:
+    "@types/yargs-parser": "*"
+  checksum: f0673cbfc08e17239dc58952a88350d6c4db04a027a28a06fbad27d87b670e909f9cd9e66f9c64cebdd5071d1096261e33454a55868395f125297e5c50992ca8
   languageName: node
   linkType: hard
 
@@ -2502,7 +2532,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^4.0.0":
+"chalk@npm:^4.0.0, chalk@npm:^4.1.0":
   version: 4.1.2
   resolution: "chalk@npm:4.1.2"
   dependencies:
@@ -5277,9 +5307,13 @@ __metadata:
     kysely: ^0.18.1
     lodash: ^4.17.21
     mysql2: ^2.3.3
+    publish-if-not-published: ^3.1.2
     rimraf: ^3.0.2
     ts-jest: ^27.1.4
     typescript: ^4.6.3
+  peerDependencies:
+    kysely: ^0.18.1
+    mysql2: ^2.3.3
   languageName: unknown
   linkType: soft
 
@@ -5764,6 +5798,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"publish-if-not-published@npm:^3.1.2":
+  version: 3.1.2
+  resolution: "publish-if-not-published@npm:3.1.2"
+  dependencies:
+    "@types/node": ^14.11.8
+    "@types/semver": ^7.3.9
+    "@types/yargs": ^17.0.7
+    "@types/yargs-parser": ^20.2.1
+    chalk: ^4.1.0
+    regenerator-runtime: ^0.13.9
+    semver: ^7.3.5
+    yargs: ^17.3.0
+    yargs-parser: ^21.0.0
+  bin:
+    publish-if-not-published: lib/cli.js
+  checksum: b860762e9a0d421c964a12954960a33c3174f9ed05d1e527b370ee2373c66d0046e43fe1dc24e43091776500cdc8fa1fd8ce97ef92f60b29e33c7c962afe3fbc
+  languageName: node
+  linkType: hard
+
 "punycode@npm:^2.1.0, punycode@npm:^2.1.1":
   version: 2.1.1
   resolution: "punycode@npm:2.1.1"
@@ -5821,7 +5874,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"regenerator-runtime@npm:^0.13.4":
+"regenerator-runtime@npm:^0.13.4, regenerator-runtime@npm:^0.13.9":
   version: 0.13.9
   resolution: "regenerator-runtime@npm:0.13.9"
   checksum: 65ed455fe5afd799e2897baf691ca21c2772e1a969d19bb0c4695757c2d96249eb74ee3553ea34a91062b2a676beedf630b4c1551cc6299afb937be1426ec55e
@@ -6950,7 +7003,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs@npm:^17.3.1":
+"yargs@npm:^17.3.0, yargs@npm:^17.3.1":
   version: 17.4.1
   resolution: "yargs@npm:17.4.1"
   dependencies:

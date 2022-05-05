@@ -1,3 +1,6 @@
 /.vscode/
 /.yarn/
 /.pnp.*js
+
+dist/
+coverage/
