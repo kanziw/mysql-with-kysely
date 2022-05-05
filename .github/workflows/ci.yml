@@ -31,3 +31,31 @@ jobs:
       - uses: codecov/codecov-action@v2
         with:
           verbose: true
+
+  integration-test:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0.29
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: test
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Set up DDL using mysqldef
+        run: |
+          wget -c https://github.com/k0kubun/sqldef/releases/download/v0.11.20/mysqldef_linux_amd64.tar.gz -O - | \
+            tar -xz -C /usr/local/bin/
+          mysqldef --version
+          yarn db:sync
+
+      - name: Run Integration Test
+        run: |
+          yarn test:integration
