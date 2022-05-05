@@ -56,6 +56,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["kysely", "npm:0.18.1"],\
             ["lodash", "npm:4.17.21"],\
             ["mysql2", "npm:2.3.3"],\
+            ["publish-if-not-published", "npm:3.1.2"],\
             ["rimraf", "npm:3.0.2"],\
             ["ts-jest", "virtual:257ac4332fe902f75475b8e3a94f6c49db19d1a582d2336c8242a01141b827cea122cdea608e1a26847d119aea2121d827d676636b9ea6ad33b94f18a772f295#npm:27.1.4"],\
             ["typescript", "patch:typescript@npm%3A4.6.3#~builtin<compat/typescript>::version=4.6.3&hash=bda367"]\
@@ -3042,6 +3043,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/node", [\
+        ["npm:14.18.16", {\
+          "packageLocation": "./.yarn/cache/@types-node-npm-14.18.16-c8b08d019c-1999799309.zip/node_modules/@types/node/",\
+          "packageDependencies": [\
+            ["@types/node", "npm:14.18.16"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:16.11.27", {\
           "packageLocation": "./.yarn/cache/@types-node-npm-16.11.27-f4555d5131-6ed0c8c4d2.zip/node_modules/@types/node/",\
           "packageDependencies": [\
@@ -3066,6 +3074,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@types/semver", [\
+        ["npm:7.3.9", {\
+          "packageLocation": "./.yarn/cache/@types-semver-npm-7.3.9-eb0d8b7243-60bfcfdfa7.zip/node_modules/@types/semver/",\
+          "packageDependencies": [\
+            ["@types/semver", "npm:7.3.9"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@types/stack-utils", [\
         ["npm:2.0.1", {\
           "packageLocation": "./.yarn/cache/@types-stack-utils-npm-2.0.1-867718ab70-205fdbe332.zip/node_modules/@types/stack-utils/",\
@@ -3083,9 +3100,24 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/yargs-parser", "npm:21.0.0"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:17.0.10", {\
+          "packageLocation": "./.yarn/cache/@types-yargs-npm-17.0.10-04ed5382c7-f0673cbfc0.zip/node_modules/@types/yargs/",\
+          "packageDependencies": [\
+            ["@types/yargs", "npm:17.0.10"],\
+            ["@types/yargs-parser", "npm:21.0.0"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["@types/yargs-parser", [\
+        ["npm:20.2.2", {\
+          "packageLocation": "./.yarn/cache/@types-yargs-parser-npm-20.2.2-83e2ce0f1a-f5a57ba32b.zip/node_modules/@types/yargs-parser/",\
+          "packageDependencies": [\
+            ["@types/yargs-parser", "npm:20.2.2"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:21.0.0", {\
           "packageLocation": "./.yarn/cache/@types-yargs-parser-npm-21.0.0-c8a3b32c52-b2f4c8d12a.zip/node_modules/@types/yargs-parser/",\
           "packageDependencies": [\
@@ -7275,6 +7307,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["kysely", "npm:0.18.1"],\
             ["lodash", "npm:4.17.21"],\
             ["mysql2", "npm:2.3.3"],\
+            ["publish-if-not-published", "npm:3.1.2"],\
             ["rimraf", "npm:3.0.2"],\
             ["ts-jest", "virtual:257ac4332fe902f75475b8e3a94f6c49db19d1a582d2336c8242a01141b827cea122cdea608e1a26847d119aea2121d827d676636b9ea6ad33b94f18a772f295#npm:27.1.4"],\
             ["typescript", "patch:typescript@npm%3A4.6.3#~builtin<compat/typescript>::version=4.6.3&hash=bda367"]\
@@ -7837,6 +7870,24 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/psl-npm-1.8.0-226099d70e-6150048ed2.zip/node_modules/psl/",\
           "packageDependencies": [\
             ["psl", "npm:1.8.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["publish-if-not-published", [\
+        ["npm:3.1.2", {\
+          "packageLocation": "./.yarn/cache/publish-if-not-published-npm-3.1.2-b48a168543-b860762e9a.zip/node_modules/publish-if-not-published/",\
+          "packageDependencies": [\
+            ["publish-if-not-published", "npm:3.1.2"],\
+            ["@types/node", "npm:14.18.16"],\
+            ["@types/semver", "npm:7.3.9"],\
+            ["@types/yargs", "npm:17.0.10"],\
+            ["@types/yargs-parser", "npm:20.2.2"],\
+            ["chalk", "npm:4.1.2"],\
+            ["regenerator-runtime", "npm:0.13.9"],\
+            ["semver", "npm:7.3.7"],\
+            ["yargs", "npm:17.4.1"],\
+            ["yargs-parser", "npm:21.0.1"]\
           ],\
           "linkType": "HARD"\
         }]\

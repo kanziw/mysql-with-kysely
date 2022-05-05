@@ -1,6 +1,6 @@
 {
   "name": "mysql-with-kysely",
-  "version": "0.0.0-rc-8",
+  "version": "0.0.1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kanziw/mysql-with-kysely.git"
@@ -14,12 +14,12 @@
   "packageManager": "yarn@3.2.0",
   "scripts": {
     "clean": "rimraf dist/",
-    "build": "yarn clean && tsc && rimraf dist/__tests__/",
+    "build": "yarn clean && tsc",
     "db:sync": "mysqldef -uroot -proot test < ddl.sql && sql-ts -c dbconfig.json",
-    "lint": "eslint src",
+    "lint": "eslint .",
     "test": "jest",
     "test:integration": "jest -c jest-integration.config.js",
-    "publish": "yarn build && yarn npm publish --access public"
+    "publish": "yarn build && yarn publish-if-not-published"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
@@ -40,6 +40,7 @@
     "husky": "^7.0.4",
     "jest": "^27.5.1",
     "lodash": "^4.17.21",
+    "publish-if-not-published": "^3.1.2",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.1.4",
     "typescript": "^4.6.3"
