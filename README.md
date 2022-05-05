@@ -2,6 +2,12 @@
 
 ![CI](https://github.com/kanziw/mysql-with-kysely/actions/workflows/ci.yml/badge.svg) [![codecov](https://codecov.io/gh/kanziw/mysql-with-kysely/branch/main/graph/badge.svg?token=DYH0PQHQ9R)](https://codecov.io/gh/kanziw/mysql-with-kysely)
 
+- `mysql-with-kysely` use [mysql2](https://github.com/sidorares/node-mysql2) and [kysely](https://github.com/koskimas/kysely)
+- Handle MySQL BIGINT type as string
+- `Incorrect arguments to mysqld_stmt_execute` error safe!
+  - Since MySQL 8.0.22, mysql2 driver has `Incorrect arguments to mysqld_stmt_execute` [issue](https://github.com/sidorares/node-mysql2/issues/1239)
+  - [LimitCasingPlugin](./src/kyselyPlugins/limitCasingPlugin.ts) resolves it
+
 
 ## Installation
 
