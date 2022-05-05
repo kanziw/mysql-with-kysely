@@ -1,0 +1,72 @@
+on:
+  pull_request:
+    paths:
+      - 'ddl.sql'
+
+name: Manage DDL
+
+env:
+  GITHUB_TOKEN: ${{ github.token }}
+
+jobs:
+  comment-ddl-diff:
+    runs-on: ubuntu-latest
+    services:
+      mysql-ddl-diff:
+        image: mysql:8.0.29
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: mini
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    steps:
+      - name: Install mysqldef
+        run: |
+          wget -c https://github.com/k0kubun/sqldef/releases/download/v0.11.20/mysqldef_linux_amd64.tar.gz -O - | \
+            tar -xz -C /usr/local/bin/
+          mysqldef --version
+
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+          ref: main
+
+      - name: Apply main branch DDL
+        run: |
+          mysqldef -uroot -proot test < ddl.sql
+
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 5
+          ref: ${{ github.ref }}
+
+      - name: Dry-run DDL
+        id: dry_run
+        run: |
+          DDL_DIFF=$(mysqldef -uroot -proot test --dry-run < ddl.sql)
+          DDL_DIFF="${DDL_DIFF//'%'/'%25'}"
+          DDL_DIFF="${DDL_DIFF//$'\n'/'%0A'}"
+          DDL_DIFF="${DDL_DIFF//$'\r'/'%0D'}"
+          echo "::set-output name=ddl_diff::$DDL_DIFF"
+
+      - name: Find Comment
+        uses: peter-evans/find-comment@v1
+        id: fc
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: Diff https://github.com/${{ github.repository }}/compare/main...
+
+      - name: Upsert DDL diff comment
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          comment-id: ${{ steps.fc.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ## Diff https://github.com/${{ github.repository }}/compare/main...${{ github.ref }}
+
+            ```sql
+            ${{ steps.dry_run.outputs.ddl_diff }}
+            ```
+          edit-mode: replace
