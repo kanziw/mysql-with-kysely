@@ -4,7 +4,7 @@ import { Subscriber, withSqlQueryMetricPublish } from './logging'
 import { Query, queryWithSubscribers } from './query'
 
 export interface MySql<Database> extends Query<Database> {
-  ping(): Promise<void>;
+  ping(options?: { timeoutMs?:number }): Promise<void>;
   withTransaction<T = void>(fn: (connection: Query<Database>) => Promise<T>): Promise<T>;
   truncate(tableName: keyof Database): Promise<void>;
   subscribe(subscriber: Subscriber): void;
@@ -23,8 +23,8 @@ export const mysql = <Database>(pool: Pool): MySql<Database> => {
   const query = queryWithSubscribers(subscribers)
 
   return {
-    async ping() {
-      const { promise, cancel } = cancellableDelay(3000)
+    async ping({ timeoutMs = 3_000 } = {}) {
+      const { promise, cancel } = cancellableDelay(timeoutMs)
       const isSuccess = await Promise.race([
         withConnection((connection) => connection.ping())
           .then(() => true)
