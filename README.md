@@ -6,7 +6,7 @@
 - Handle MySQL BIGINT type as string
 - `Incorrect arguments to mysqld_stmt_execute` error safe!
   - Since MySQL 8.0.22, mysql2 driver has `Incorrect arguments to mysqld_stmt_execute` [issue](https://github.com/sidorares/node-mysql2/issues/1239)
-  - [LimitCasingPlugin](./src/kyselyPlugins/limitCasingPlugin.ts) resolves it
+  - [OffsetLimitTypeCastingPlugin](./src/kyselyPlugins/offsetLimitTypeCastingPlugin.ts) resolves it
 
 
 ## Installation
