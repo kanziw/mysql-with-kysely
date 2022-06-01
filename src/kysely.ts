@@ -11,13 +11,13 @@ type DataLifecycleTracker = {
 export type WithDataLifecycleTracker<Schema> = DataLifecycleTracker & Omit<Schema, 'created_at' | 'updated_at'>
 
 export type WithSchema<Schema> = WithPkId<WithDataLifecycleTracker<Schema>>;
-export type SelectableSchema<Database> = {
+export type toSelectableSchema<Database> = {
   [key in keyof Database]: Omit<Selectable<Database[key]>, 'created_at' | 'updated_at'>
 }
-export type FullSelectableSchema<Database> = {
+export type toFullSelectableSchema<Database> = {
   [key in keyof Database]: Selectable<Database[key]>
 }
-export type InsertableSchema<Database> = {
+export type toInsertableSchema<Database> = {
   [key in keyof Database]: Insertable<Database[key]>
 }
 

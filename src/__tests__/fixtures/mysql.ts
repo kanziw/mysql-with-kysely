@@ -1,9 +1,9 @@
-import { queryBuilder, WithSchema, SelectableSchema } from '../../index'
+import { queryBuilder, WithSchema, toSelectableSchema } from '../../index'
 import type { User } from './model'
 
 export type Database = {
   user: WithSchema<User>
 }
-export type Schema = SelectableSchema<Database>
+export type SelectableSchema = toSelectableSchema<Database>
 
 export const qb = queryBuilder<Database>()
