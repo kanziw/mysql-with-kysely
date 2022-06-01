@@ -13,15 +13,17 @@ describe('MockMySqlHelper', () => {
     const { db, mockMySqlCall, checkExecutedSqls } = createMockMySqlHelper()
 
     mockMySqlCall<Schema['user']>(
-      'select * from `user` where `id` = ?',
-      ['1'],
+      'select * from `user` where `id` = ? limit ? offset ?',
+      ['1', '1', '0'],
       [fakeUser],
     )
 
     const [user] = await db.query(qb
       .selectFrom('user')
       .selectAll()
-      .where('id', '=', '1'),
+      .where('id', '=', '1')
+      .offset(0)
+      .limit(1),
     )
 
     expect(user).toEqual(fakeUser)

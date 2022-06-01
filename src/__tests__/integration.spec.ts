@@ -18,7 +18,18 @@ describe('Integration Test with Real MySQL Connection', () => {
       const users = await db.query(qb
         .selectFrom('user')
         .selectAll()
+        .orderBy('id', 'desc'),
+      )
+
+      expect(users).toEqual([])
+    })
+
+    test('select with offset & limit', async() => {
+      const users = await db.query(qb
+        .selectFrom('user')
+        .selectAll()
         .orderBy('id', 'desc')
+        .offset(0)
         .limit(1),
       )
 
