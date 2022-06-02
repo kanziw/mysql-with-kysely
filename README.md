@@ -1,6 +1,10 @@
 # mysql-with-kysely
 
-![CI](https://github.com/kanziw/mysql-with-kysely/actions/workflows/ci.yml/badge.svg) [![codecov](https://codecov.io/gh/kanziw/mysql-with-kysely/branch/main/graph/badge.svg?token=DYH0PQHQ9R)](https://codecov.io/gh/kanziw/mysql-with-kysely)
+![CI](https://github.com/kanziw/mysql-with-kysely/actions/workflows/ci.yml/badge.svg)
+[![codecov](https://codecov.io/gh/kanziw/mysql-with-kysely/branch/main/graph/badge.svg?token=DYH0PQHQ9R)](https://codecov.io/gh/kanziw/mysql-with-kysely)
+[![npm version](https://img.shields.io/npm/v/mysql-with-kysely)](https://www.npmjs.com/package/mysql-with-kysely)
+[![license](https://img.shields.io/npm/l/mysql-with-kysely)](https://www.npmjs.com/package/mysql-with-kysely)
+[![npm downloads](https://img.shields.io/npm/dt/mysql-with-kysely)](https://www.npmjs.com/package/mysql-with-kysely)
 
 - `mysql-with-kysely` use [mysql2](https://github.com/sidorares/node-mysql2) and [kysely](https://github.com/koskimas/kysely)
 - Handle MySQL BIGINT type as string
