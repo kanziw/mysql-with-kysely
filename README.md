@@ -23,7 +23,7 @@ $ yarn add mysql-with-kysely
 ## Usages
 
 ```ts
-import { InsertableSchema, SelectableSchema, WithSchema, connect, queryBuilder } from 'mysql-with-kysely'
+import { toInsertableSchema, toFullSelectableSchema, WithSchema, connect, queryBuilder } from 'mysql-with-kysely'
 import type { User } from './model'
 
 // for query builder
@@ -32,8 +32,8 @@ type Database = {
 }
 
 // for your code
-type Schema = SelectableSchema<Database>
-type InsertValueSchema = InsertableSchema<Database>
+type SelectableSchema = toFullSelectableSchema<Database>
+type InsertableSchema = toInsertableSchema<Database>
 
 const { db, close } = connect<Database>({ uri: 'mysql://root:root@localhost:3306/test' });
 
@@ -45,7 +45,8 @@ db.subscribe(({ sql, normalizedSql, durationMs, occurredAt, parameters }) => {
 const qb = queryBuilder<Database>()
 
 // write your codes type safely
-// type of users is `Array<Schema['user']>`
+// type of users is `Array<SelectableSchema['user']>`
+// if you don't need created_at & updated_at, use toSelectableSchema instead of toFullSelectableSchema
 const users = await db.query(qb
   .selectFrom('user')
   .selectAll()
@@ -53,7 +54,7 @@ const users = await db.query(qb
   .limit(1),
 )
 
-// type of value is `InsertValueSchema['user']`
+// type of value is `InsertableSchema['user']`
 const value = { name: 'kanziw', email: 'kanziwoong@gmail.com' }     
 const { insertId } = await db.execute(qb
   .insertInto('user')

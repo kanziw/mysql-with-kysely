@@ -1,4 +1,4 @@
-import { qb, Schema } from './fixtures/mysql'
+import { qb, SelectableSchema } from './fixtures/mysql'
 import { createMockMySqlHelper, FakeDuplicateError } from '../test'
 import { isDuplicatedError } from '../mysql'
 
@@ -8,11 +8,11 @@ describe('MockMySqlHelper', () => {
       id: '1',
       name: 'kanziw',
       email: 'kanziwoong@gmail.com',
-    } as Schema['user']
+    } as SelectableSchema['user']
 
     const { db, mockMySqlCall, checkExecutedSqls } = createMockMySqlHelper()
 
-    mockMySqlCall<Schema['user']>(
+    mockMySqlCall<SelectableSchema['user']>(
       'select * from `user` where `id` = ? limit ? offset ?',
       ['1', '1', '0'],
       [fakeUser],
